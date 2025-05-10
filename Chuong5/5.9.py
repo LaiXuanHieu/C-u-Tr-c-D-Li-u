@@ -1,0 +1,28 @@
+def postfix_to_prefix(expression):
+    stack = []
+    operators = set(['+', '-', '*', '/', '^'])
+    
+    for char in expression:
+        if char.isalnum():
+            stack.append(char)
+        elif char in operators:
+            if len(stack) >= 2:
+                operand2 = stack.pop()
+                operand1 = stack.pop()
+                new_expr = f'{char}{operand1}{operand2}'
+                stack.append(new_expr)
+    
+    return stack[0] if stack else ""
+
+# Nhập số lượng bộ test
+T = int(input().strip())
+
+if 1 <= T <= 100:
+    results = []
+    for _ in range(T):
+        expression = input().strip()
+        if 2 <= len(expression) <= 10**6:
+            results.append(postfix_to_prefix(expression))
+    
+    # Xuất kết quả
+    print("\n".join(results))
